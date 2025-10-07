@@ -1,0 +1,306 @@
+html
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>每日一句 - 智慧语录</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        .header {
+            background: linear-gradient(to right, #4776E6, #8E54E9);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 40px 30px;
+        }
+        
+        .quote-card {
+            background: #f8f9fa;
+            border-left: 5px solid #4776E6;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .quote-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .quote-text {
+            font-size: 1.5rem;
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 500;
+        }
+        
+        .quote-author {
+            text-align: right;
+            font-style: italic;
+            color: #666;
+            font-size: 1.1rem;
+        }
+        
+        .actions {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(to right, #4776E6, #8E54E9);
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: #e9ecef;
+            color: #495057;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #6c757d;
+            font-size: 0.9rem;
+            border-top: 1px solid #e9ecef;
+        }
+        
+        .qr-section {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        
+        .qr-code {
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 15px;
+            background: #e9ecef;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            font-weight: bold;
+            color: #6c757d;
+        }
+        
+        .scan-text {
+            font-size: 1rem;
+            color: #495057;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .quote-text {
+                font-size: 1.3rem;
+            }
+            
+            .actions {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>智慧语录</h1>
+            <p>每次扫描都会获得一句随机名言</p>
+        </div>
+        
+        <div class="content">
+            <div class="quote-card">
+                <div class="quote-text" id="quote">点击下方按钮获取一句随机名言</div>
+                <div class="quote-author" id="author"></div>
+            </div>
+            
+            <div class="actions">
+                <button class="btn btn-primary" id="newQuote">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
+                        <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
+                    </svg>
+                    新句子
+                </button>
+                <button class="btn btn-secondary" id="shareQuote">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5zm-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/>
+                    </svg>
+                    分享
+                </button>
+            </div>
+            
+            <div class="qr-section">
+                <div class="qr-code">
+                    [二维码图案]
+                </div>
+                <p class="scan-text">扫描此二维码访问此页面</p>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>每刷新一次页面或点击"新句子"按钮，都会显示不同的名言</p>
+        </div>
+    </div>
+ 
+    <script>
+        // 名言库
+        const quotes = [
+            { text: "成功不是将来才有的，而是从决定去做的那一刻起，持续累积而成。", author: "佚名" },
+            { text: "人生的价值，并不是用时间，而是用深度去衡量的。", author: "列夫·托尔斯泰" },
+            { text: "生活就像骑自行车，为了保持平衡，你必须不断前进。", author: "爱因斯坦" },
+            { text: "不要等待机会，而要创造机会。", author: "佚名" },
+            { text: "世上没有绝望的处境，只有对处境绝望的人。", author: "佚名" },
+            { text: "过去属于死神，未来属于你自己。", author: "雪莱" },
+            { text: "志不立，天下无可成之事。", author: "王阳明" },
+            { text: "路漫漫其修远兮，吾将上下而求索。", author: "屈原" },
+            { text: "天行健，君子以自强不息。", author: "《周易》" },
+            { text: "宝剑锋从磨砺出，梅花香自苦寒来。", author: "《警世贤文》" },
+            { text: "长风破浪会有时，直挂云帆济沧海。", author: "李白" },
+            { text: "山重水复疑无路，柳暗花明又一村。", author: "陆游" },
+            { text: "不经一番寒彻骨，怎得梅花扑鼻香。", author: "黄蘖禅师" },
+            { text: "千淘万漉虽辛苦，吹尽狂沙始到金。", author: "刘禹锡" },
+            { text: "成功的秘诀，在永不改变既定的目的。", author: "卢梭" }
+        ];
+        
+        // DOM元素
+        const quoteElement = document.getElementById('quote');
+        const authorElement = document.getElementById('author');
+        const newQuoteButton = document.getElementById('newQuote');
+        const shareQuoteButton = document.getElementById('shareQuote');
+        
+        // 显示随机名言
+        function showRandomQuote() {
+            const randomIndex = Math.floor(Math.random() * quotes.length);
+            const randomQuote = quotes[randomIndex];
+            
+            quoteElement.textContent = randomQuote.text;
+            authorElement.textContent = `— ${randomQuote.author}`;
+            
+            // 添加淡入动画
+            quoteElement.style.opacity = 0;
+            authorElement.style.opacity = 0;
+            
+            setTimeout(() => {
+                quoteElement.style.opacity = 1;
+                authorElement.style.opacity = 1;
+            }, 300);
+        }
+        
+        // 分享功能
+        function shareQuote() {
+            const currentQuote = quoteElement.textContent;
+            const currentAuthor = authorElement.textContent;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: '智慧语录',
+                    text: `${currentQuote} ${currentAuthor}`,
+                    url: window.location.href
+                })
+                .catch(error => console.log('分享出错:', error));
+            } else {
+                // 备用方案 - 复制到剪贴板
+                const textToCopy = `${currentQuote} ${currentAuthor}\n\n来自: ${window.location.href}`;
+                
+                navigator.clipboard.writeText(textToCopy)
+                    .then(() => {
+                        alert('名言已复制到剪贴板！');
+                    })
+                    .catch(err => {
+                        console.error('复制失败:', err);
+                        alert('复制失败，请手动复制文本。');
+                    });
+            }
+        }
+        
+        // 事件监听
+        newQuoteButton.addEventListener('click', showRandomQuote);
+        shareQuoteButton.addEventListener('click', shareQuote);
+        
+        // 页面加载时显示随机名言
+        document.addEventListener('DOMContentLoaded', showRandomQuote);
+        
+        // 添加页面刷新时也显示随机名言
+        window.onload = showRandomQuote;
+    </script>
+</body>
+</html>
